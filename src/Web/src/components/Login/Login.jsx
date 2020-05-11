@@ -6,7 +6,7 @@ import axios from 'axios'
 import config from 'config'
 import './Login.css'
 
-const authenticate = async({ user, password }) => {    
+const authenticate = async( user, password ) => {    
     const data = { login: user, password: password };
     let result = await axios({
         method: 'post',

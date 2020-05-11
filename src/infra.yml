@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+      
+  kiper_mysql:    
+    image: mysql:latest
+    container_name: kiper_mysql
+    ports:
+      - 3306:3306   
+    networks:
+      - kiperchallengenetwork
+    environment:
+      MYSQL_ROOT_PASSWORD: "kiperpassword"
+      MYSQL_PASSWORD: "Pass1234"
+      MYSQL_USER: "kiper"
+    volumes:
+      - mysqlvolume:/var/lib/mysql    
+      
+volumes:
+  mysqlvolume:
+  
+networks:
+  kiperchallengenetwork:
+    external: true  

@@ -1,4 +1,4 @@
 export default {
-    AUTH_API: 'http://localhost:5072/api/User',
-    BACKEND_API: 'http://localhost:5070/api'
+    AUTH_API: 'http://localhost:5080/api/User',
+    BACKEND_API: 'http://localhost:5081/api'
 }

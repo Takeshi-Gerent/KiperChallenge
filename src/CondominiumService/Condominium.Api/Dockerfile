@@ -1,21 +1,25 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
-WORKDIR /app
-EXPOSE 80
-
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
-WORKDIR /src
-COPY ["Condominium.Api/Condominium.Api.csproj", "Condominium.Api/"]
-RUN dotnet restore "Condominium.Api/Condominium.Api.csproj"
-COPY . .
-WORKDIR "/src/Condominium.Api"
-RUN dotnet build "Condominium.Api.csproj" -c Release -o /app/build
+
+ENV APP_HOME /src
+RUN mkdir $APP_HOME
+WORKDIR $APP_HOME
+
+COPY ["Condominium.Application/Condominium.Application.csproj", "$APP_HOME/Condominium.Application/"]
+COPY ["Condominium.Api/Condominium.Api.csproj", "$APP_HOME/Condominium.Api/"]
+RUN cd $APP_HOME/Condominium.Api && dotnet restore
+
+COPY ["Condominium.Application", "$APP_HOME/Condominium.Application/"]
+COPY ["Condominium.Api", "$APP_HOME/Condominium.Api/"]
+RUN cd $APP_HOME/Condominium.Api && dotnet build
 
 FROM build AS publish
-RUN dotnet publish "Condominium.Api.csproj" -c Release -o /app/publish
+WORKDIR $APP_HOME/Condominium.Api
+RUN dotnet publish -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
+ENV ASPNETCORE_URLS=http://+:5070
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Condominium.Api.dll"]

@@ -17,4 +17,5 @@ Deve existir um mecanismo de login e senha para que o sistema possa ser acessado
 ![ER](ER.png)
 
 **mysql**
+
 Executar o script 'database/createdatabase.sql'

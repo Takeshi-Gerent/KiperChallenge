@@ -1,0 +1,56 @@
+version: '3.4'
+
+
+
+services: 
+  Authapi:
+    image: authapi
+    container_name: condominium-authapi
+    build:
+      context: ./CondominiumService/
+      dockerfile: ./Auth.Api/Dockerfile
+    environment:      
+      ASPNETCORE_URLS: "http://+:5072"
+    ports:
+      - '5080:5072'
+    networks:
+      - kiperchallengenetwork 
+      
+  Condominiumapi:
+    image: condominiumapi
+    container_name: condominium-backendapi
+    build:
+      context: ./CondominiumService/
+      dockerfile: ./Condominium.Api/Dockerfile
+    environment:
+      ASPNETCORE_URLS: "http://+:5070"
+    ports:
+      - '5081:5070'      
+    networks:
+      - kiperchallengenetwork 
+
+  Condominiumfrontend:
+    image: condominiumfrontend
+    container_name: condominium-frontend
+    build:
+      context: './Web'
+      dockerfile: './Dockerfile'
+    volumes:
+      - './Web:/app'
+      - '/Web/app/node_modules'
+    ports:
+      - '3001:3000'
+    environment:
+      NODE_ENV: "development"      
+    networks:
+      - kiperchallengenetwork        
+    stdin_open: true
+      
+
+
+networks:
+  kiperchallengenetwork:
+    external: true        
+    
+    
+
