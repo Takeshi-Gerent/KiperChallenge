@@ -45,14 +45,13 @@ namespace Condominium.Api.Domain
             Apartment = apartment;
         }
 
-        public virtual void UpdateData(string name, DateTime birthDate, string telephone, string cpf, string email, Apartment apartment)
+        public virtual void UpdateData(string name, DateTime birthDate, string telephone, string cpf, string email)
         {
             Name = name;
             BirthDate = birthDate;
             Telephone = telephone;
             CPF = cpf;
-            Email = email;
-            SetApartment(apartment);
+            Email = email;           
         }
     }
 

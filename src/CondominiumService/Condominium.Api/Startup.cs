@@ -32,6 +32,14 @@ namespace Condominium.Api
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);
             services.AddNHibernate(Configuration.GetConnectionString("DefaultConnection"));
 
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1.0",
@@ -61,6 +69,8 @@ namespace Condominium.Api
                 c.SwaggerEndpoint("/swagger/v1.0/swagger.json", "API 1");
                 c.RoutePrefix = "info";
             });
+
+            app.UseCors();
 
             app.UseRouting();
 

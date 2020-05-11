@@ -55,14 +55,15 @@ namespace Condominium.Api.Domain
                     updatedDweller.BirthDate,
                     updatedDweller.Telephone,
                     updatedDweller.CPF,
-                    updatedDweller.Email,
-                    this);
+                    updatedDweller.Email
+                    );
             });
             dwellers.Where(p => p.Id == 0).ToList().ForEach(p => {
                 p.SetApartment(this);
                 Dwellers.Add(p);
             });
         }
+
     }
 
     

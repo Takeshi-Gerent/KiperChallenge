@@ -7,9 +7,11 @@ namespace Condominium.Api.Domain
 {
     public interface IDwellerRepository
     {
-        Task<IEnumerable<Dweller>> FindByApartmentId(int id);
         void Delete(int id);
         void Update(Dweller dweller);
         void Add(Dweller dweller);
+        Task<Dweller> GetById(int id);
+        Task<ICollection<Dweller>> GetAllByDweller(string name, string birthDate, string telephone, string cpf, string email);
+        Task<ICollection<Dweller>> GetAllByApartment(string number, string block);
     }
 }

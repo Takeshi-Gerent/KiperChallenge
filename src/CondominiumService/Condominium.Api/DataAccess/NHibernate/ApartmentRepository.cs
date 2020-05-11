@@ -1,5 +1,6 @@
 ﻿using Condominium.Api.Domain;
 using NHibernate;
+using NHibernate.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,9 @@ namespace Condominium.Api.DataAccess.NHibernate
             this.session = session;
         }
 
-        public Apartment GetById(int id)
+        public async Task<Apartment> GetById(int id)
         {
-            return session.Get<Apartment>(id);
+            return await session.GetAsync<Apartment>(id);
         }
 
         public void Add(Apartment apartment)
@@ -34,6 +35,11 @@ namespace Condominium.Api.DataAccess.NHibernate
         public void Delete(int id)
         {
             session.Delete(session.Load<Apartment>(id));
+        }
+
+        public async Task<ICollection<Apartment>> GetAll()
+        {
+            return await session.Query<Apartment>().ToListAsync();
         }
 
     }

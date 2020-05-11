@@ -20,13 +20,20 @@ namespace Condominium.Api.Commands
 
         public async Task<bool> Handle(DeleteApartmentCommand request, CancellationToken cancellationToken)
         {
+            Validate(request);
             var apartment = uow.ApartmentRepository.GetById(request.Id);
 
-            if (apartment == null) return false;
+            if (apartment == null) throw new Exception("Apartamento não localizado.");
             uow.ApartmentRepository.Delete(request.Id);
             await uow.CommitChanges();
 
             return true;
+        }
+
+        private static void Validate(DeleteApartmentCommand command)
+        {
+            if (command.Id <= 0)
+                throw new Exception("Informe o identificador do apartamento a ser removido");
         }
 
     }

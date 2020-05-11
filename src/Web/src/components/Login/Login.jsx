@@ -1,87 +1,80 @@
-﻿import React, { useState, useContext } from 'react';
+﻿import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
+import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap"
 import StoreContext from 'components/Store/Context'
-import axios from 'axios';
+import axios from 'axios'
+import config from 'config'
+import './Login.css'
 
-import './Login.css';
-
-function initialState() {
-    return { user: '', password: '' };
-}
-
-const login = async({ user, password }) => {    
+const authenticate = async({ user, password }) => {    
     const data = { login: user, password: password };
     let result = await axios({
         method: 'post',
         headers: { 'Content-Type': 'application/json-patch+json' },
-        url: process.env.REACT_APP_AUTH_URL,
+        url: config.AUTH_API,
         data: data
     });
+
     return result;
         
 }
 
-const UserLogin = () => {
-    const [values, setValues] = useState(initialState);
+const Login = () => {    
+    function initialState() {
+        return { user: '', password: '' };
+    }
+
+    const [user, setUser] = useState(initialState().user);
+    const [password, setPassword] = useState(initialState().password);
+
     const [error, setError] = useState(null);
-    const { setToken } = useContext(StoreContext);
+    const { setToken } = useContext(StoreContext);    
     const history = useHistory();
 
-    function onChange(event) {
-        const { value, name } = event.target;
 
-        setValues({
-            ...values,
-            [name]: value
-        });
+    function validateForm() {
+        return user.length > 0 && password.length > 0;
     }
 
     function onSubmit(event) {
         event.preventDefault();
         
-        login(values)
+        authenticate(user,password)
             .then((response) => {
+                
                 setToken(response.data.token);
+                
                 return history.push('/');
             })
             .catch((error) => {
                 console.log(error.response);
-                setError(error.response.data.message);
-                setValues(initialState);
+                setError(error.response?.data.message);
+                setUser(initialState().user);
+                setPassword(initialState().password);
             });        
     }
 
     return (
-        <div className="user-login">            
-            <h1 className="user-login__title">Controle de condomínio</h1>
+        <div className="Login">          
             <form onSubmit={onSubmit}>
-                <div className="user-login__form-control">
-                    <label htmlFor="user">Usuário</label>
-                    <input
-                        id="user"
-                        type="text"
-                        name="user"
-                        onChange={onChange}
-                        value={values.user}
-                    />
-                </div>
-                <div className="user-login__form-control">
-                    <label htmlFor="password">Senha</label>
-                    <input
-                        id="password"
-                        type="password"
-                        name="password"
-                        onChange={onChange}
-                        value={values.password}
-                    />
-                </div>
+                <FormGroup controlId="login">
+                    <FormLabel>Usuário</FormLabel>
+                    <FormControl type="text" value={user} onChange={e => setUser(e.target.value)} />
+                </FormGroup>
+                <FormGroup controlId="password">
+                    <FormLabel>Senha</FormLabel>
+                    <FormControl type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                </FormGroup>
+                
                 {error && (
                     <div className="user-login__error">{error}</div>
                 )}
-                <button type="submit" className="user-login__submit-button">Login</button>        
+
+                <Button block disabled={!validateForm()} type="submit">Login</Button>
+                   
             </form>
         </div>
     );
 };
 
-export default UserLogin;
+export default Login;
