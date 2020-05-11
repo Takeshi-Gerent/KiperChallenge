@@ -13,7 +13,8 @@ determinado apartamento, bem como a busca específica por informações do morad
 Deve existir um mecanismo de login e senha para que o sistema possa ser acessado”
 
 **ER**
-!(ER.png)
+
+![ER](ER.png)
 
 **mysql**
 Executar o script 'database/createdatabase.sql'
