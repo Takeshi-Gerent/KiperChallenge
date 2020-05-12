@@ -1,17 +1,14 @@
-﻿using Condominium.Api.Domain;
-using Condominium.Application.Commands;
-using Condominium.Application.Commands.Validation;
+﻿using Condominium.Broker.Commands.UpdateDwellerCommand;
+using Condominium.Core.Domain;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Condominium.Api.Commands
 {
-    public class UpdateDwellerHandler : IRequestHandler<UpdateDwellerCommand, int>
+    public class UpdateDwellerHandler : IRequestHandler<UpdateDwellerCommand, UpdateDwellerCommandResult>
     {
         private readonly IUnitOfWork uow;
 
@@ -20,16 +17,22 @@ namespace Condominium.Api.Commands
             this.uow = uow;
         }
 
-        public async Task<int> Handle(UpdateDwellerCommand request, CancellationToken cancellationToken)
+        public async Task<UpdateDwellerCommandResult> Handle(UpdateDwellerCommand request, CancellationToken cancellationToken)
         {
-            Validate(request);
-            var dweller = await uow.DwellerRepository.GetById(request.Id);
-            if (dweller == null) throw new Exception("Morador não localizado.");
-            dweller.UpdateData(request.Name, request.BirthDate.Value, request.Telephone, request.CPF, request.Email);
-            uow.DwellerRepository.Update(dweller);
-            await uow.CommitChanges();
-
-            return dweller.Id;
+            try
+            {
+                Validate(request);
+                var dweller = await uow.DwellerRepository.GetById(request.Id);
+                if (dweller == null) throw new Exception("Morador não localizado.");
+                dweller.UpdateData(request.Name, request.BirthDate.Value, request.Telephone, request.CPF, request.Email);
+                uow.DwellerRepository.Update(dweller);
+                await uow.CommitChanges();
+                return new UpdateDwellerCommandResult { Success = true, Message = "Morador atualizado com sucesso.", DwellerId = dweller.Id };
+            }
+            catch (Exception e)
+            {
+                return new UpdateDwellerCommandResult { Success = false, Message = e.Message };
+            }            
         }
 
         private static void Validate(UpdateDwellerCommand command)

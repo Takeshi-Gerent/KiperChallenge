@@ -1,10 +1,10 @@
 ﻿import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import DwellerService from './DwellerService';
-
 import { Form, FormControl, InputGroup, Button, Table, Card, Tabs, Tab } from 'react-bootstrap';
 import { FaUserEdit } from "react-icons/fa";
 import styled from 'styled-components';
+import Moment from 'moment';
 
 const Styles = styled.div`
   .cabecalho {
@@ -54,7 +54,7 @@ class DwellerSearchForm extends Component {
             this.state.data.byDweller.email
             
         ).then(
-            (result) => { console.log(result.data); this.setState(prevState => ({ data: { ...prevState.data, resultSearch: result.data.dwellers } })); }
+            (result) => { this.setState(prevState => ({ data: { ...prevState.data, resultSearch: result.data.dwellers } })); }
         );
     }
 
@@ -147,7 +147,7 @@ class DwellerSearchForm extends Component {
                                                 <tr >
                                                     <td><Button onClick={() => this.editDweller(dweller.id)}><FaUserEdit /></Button></td>
                                                     <td>{dweller.name}</td>
-                                                    <td>{dweller.birthdate}</td>
+                                                    <td>{Moment(dweller.birthDate).format("DD/MM/YYYY")}</td>
                                                     <td>{dweller.telephone}</td>
                                                     <td>{dweller.cpf}</td>
                                                     <td>{dweller.email}</td>

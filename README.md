@@ -39,6 +39,7 @@ $ docker-compose up -d --build
 Web:
 http://localhost:3001
 (Usuario:admin;Senha:password)
+
 AuthApi:
 http://localhost:5080/info
 

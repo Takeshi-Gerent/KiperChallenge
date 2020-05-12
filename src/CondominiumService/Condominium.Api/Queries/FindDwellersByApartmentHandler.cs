@@ -1,17 +1,13 @@
-﻿using Condominium.Api.Domain;
-using Condominium.Application.Queries;
-using Condominium.Application.Queries.Dtos;
+﻿using Condominium.Broker.Queries.FindDwellersByApartmentQuery;
+using Condominium.Core.Domain;
 using MediatR;
-using NHibernate.Util;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Condominium.Api.Queries
 {
-    public class FindDwellersByApartmentHandler : IRequestHandler<FindDwellersByApartmentQuery, FindDwellersQueryResult>
+    public class FindDwellersByApartmentHandler : IRequestHandler<FindDwellersByApartmentQuery, FindDwellersByApartmentQueryResult>
     {
         private readonly IUnitOfWork uow;
 
@@ -20,32 +16,36 @@ namespace Condominium.Api.Queries
             this.uow = uow;
         }
 
-        public async Task<FindDwellersQueryResult> Handle(FindDwellersByApartmentQuery request, CancellationToken cancellationToken)
+        public async Task<FindDwellersByApartmentQueryResult> Handle(FindDwellersByApartmentQuery request, CancellationToken cancellationToken)
         {
-            var result = await uow.DwellerRepository.GetAllByApartment(request.Apartment.Number, request.Apartment.Block);
-
-            var response = new FindDwellersQueryResult();
-
-            result.ToList().ForEach(p =>
-            {
-                response.Dwellers.Add(new Application.Queries.Dtos.DwellerDto
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    BirthDate = p.BirthDate,
-                    Telephone = p.Telephone,
-                    CPF = p.CPF,
-                    Email = p.Email,
-                    Apartment = new DwellerApartmentDto
-                    {
-                        Id = p.Apartment.Id,
-                        Block = p.Apartment.Block,
-                        Number = p.Apartment.Number
-                    }
-                });
-            });
-
+            var result = await uow.DwellerRepository.GetAllByApartment(request.Number, request.Block);
+            var response = new FindDwellersByApartmentQueryResult();
+            response.Dwellers.AddRange(result.Select(p => ToDwellerDto(p)));
             return response;
+        }
+
+        private static DwellerDto ToDwellerDto(Dweller dweller)
+        {
+            return new DwellerDto
+            {
+                Id = dweller.Id,
+                Name = dweller.Name,
+                BirthDate = dweller.BirthDate,
+                Telephone = dweller.Telephone,
+                CPF = dweller.CPF,
+                Email = dweller.Email,
+                Apartment = ToApartmentDto(dweller.Apartment)
+            };
+        }
+
+        private static ApartmentDto ToApartmentDto(Apartment apartment)
+        {
+            return new ApartmentDto
+            {
+                Id = apartment.Id,
+                Block = apartment.Block,
+                Number = apartment.Number
+            };
         }
     }
 }

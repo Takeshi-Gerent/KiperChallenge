@@ -1,15 +1,13 @@
-﻿using Condominium.Api.Domain;
-using Condominium.Application.Commands;
+﻿using Condominium.Broker.Commands;
+using Condominium.Core.Domain;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Condominium.Api.Commands
 {
-    public class DeleteApartmentHandler : IRequestHandler<DeleteApartmentCommand, bool>
+    public class DeleteApartmentHandler : IRequestHandler<DeleteApartmentCommand, DeleteApartmentResult>
     {
         private readonly IUnitOfWork uow;
 
@@ -18,16 +16,23 @@ namespace Condominium.Api.Commands
             this.uow = uow;
         }
 
-        public async Task<bool> Handle(DeleteApartmentCommand request, CancellationToken cancellationToken)
+        public async Task<DeleteApartmentResult> Handle(DeleteApartmentCommand request, CancellationToken cancellationToken)
         {
-            Validate(request);
-            var apartment = uow.ApartmentRepository.GetById(request.Id);
+            try
+            {
+                Validate(request);
+                var apartment = uow.ApartmentRepository.GetById(request.Id);
 
-            if (apartment == null) throw new Exception("Apartamento não localizado.");
-            uow.ApartmentRepository.Delete(request.Id);
-            await uow.CommitChanges();
+                if (apartment == null) throw new Exception("Apartamento não localizado.");
+                uow.ApartmentRepository.Delete(request.Id);
+                await uow.CommitChanges();
 
-            return true;
+                return new DeleteApartmentResult { Success = true, Message = "Apartamento excluído com sucesso." };
+            }
+            catch (Exception e)
+            {
+                return new DeleteApartmentResult { Success = false, Message = e.Message};
+            }
         }
 
         private static void Validate(DeleteApartmentCommand command)

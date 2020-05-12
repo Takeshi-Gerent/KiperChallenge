@@ -1,16 +1,12 @@
-﻿using Condominium.Api.Domain;
-using Condominium.Application.Queries;
-using Condominium.Application.Queries.Dtos;
+﻿using Condominium.Broker.Queries.FindDwellerByIdQuery;
+using Condominium.Core.Domain;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Condominium.Api.Queries
 {
-    public class FindDwellerByIdHandler : IRequestHandler<FindDwellerByIdQuery, Application.Queries.Dtos.DwellerDto>
+    public class FindDwellerByIdHandler : IRequestHandler<FindDwellerByIdQuery, FindDwellerByIdQueryResult>
     {
         private readonly IUnitOfWork uow;
 
@@ -20,10 +16,10 @@ namespace Condominium.Api.Queries
         }
 
 
-        public async Task<Application.Queries.Dtos.DwellerDto> Handle(FindDwellerByIdQuery request, CancellationToken cancellationToken)
+        public async Task<FindDwellerByIdQueryResult> Handle(FindDwellerByIdQuery request, CancellationToken cancellationToken)
         {
             var result = await uow.DwellerRepository.GetById(request.Id);
-            return new Application.Queries.Dtos.DwellerDto
+            return new FindDwellerByIdQueryResult
             {
                 Id = result.Id,
                 Name = result.Name,
@@ -31,10 +27,17 @@ namespace Condominium.Api.Queries
                 Telephone = result.Telephone,
                 CPF = result.CPF,
                 Email = result.Email,
-                Apartment = new DwellerApartmentDto { 
-                    Id = result.Apartment.Id, 
-                    Block = result.Apartment.Block, 
-                    Number = result.Apartment.Number }
+                Apartment = ToApartmentDto(result.Apartment)
+            };
+        }
+
+        private static ApartmentDto ToApartmentDto(Apartment apartment)
+        {
+            return new ApartmentDto
+            {
+                Id = apartment.Id,
+                Block = apartment.Block,
+                Number = apartment.Number
             };
         }
     }

@@ -1,16 +1,13 @@
-﻿using Condominium.Api.Domain;
-using Condominium.Application.Queries;
-using Condominium.Application.Queries.Dtos;
+﻿using Condominium.Broker.Queries.FindAllApartmentsQuery;
+using Condominium.Core.Domain;
 using MediatR;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Condominium.Api.Queries
 {
-    public class FindAllApartmentsHandler: IRequestHandler<FindAllApartmentsQuery, IEnumerable<ApartmentDto>>
+    public class FindAllApartmentsHandler: IRequestHandler<FindAllApartmentsQuery, FindAllApartmentsQueryResult>
     {
         private readonly IUnitOfWork uow;
 
@@ -19,15 +16,24 @@ namespace Condominium.Api.Queries
             this.uow = uow;
         }
 
-        public async Task<IEnumerable<ApartmentDto>> Handle(FindAllApartmentsQuery request, CancellationToken cancellationToken)
+        public async Task<FindAllApartmentsQueryResult> Handle(FindAllApartmentsQuery request, CancellationToken cancellationToken)
         {
             var result = await uow.ApartmentRepository.GetAll();
-            return result.Select(p => new ApartmentDto{ 
-                Id = p.Id,
-                Number = p.Number,
-                Block = p.Block,
-                DwellersCount = p.Dwellers.Count()
-            });
+
+            var response = new FindAllApartmentsQueryResult();
+            response.Apartments.AddRange(result.Select(p => ToApartmentDto(p)));
+            return response;
+        }
+
+        private static ApartmentDto ToApartmentDto(Apartment apartment)
+        {
+            return new ApartmentDto
+            {
+                Id = apartment.Id,
+                Number = apartment.Number,
+                Block = apartment.Block,
+                DwellersCount = apartment.Dwellers.Count()
+            };
         }
     }
 }

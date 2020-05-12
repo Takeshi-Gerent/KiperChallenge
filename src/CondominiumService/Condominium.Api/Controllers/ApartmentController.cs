@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Condominium.Application.Commands;
-using Condominium.Application.Queries;
+﻿using System.Threading.Tasks;
+using Condominium.Broker.Commands;
+using Condominium.Broker.Commands.CreateApartmentCommand;
+using Condominium.Broker.Commands.UpdateApartmentCommand;
+using Condominium.Broker.Queries.FindAllApartmentsQuery;
+using Condominium.Broker.Queries.FindApartmentByIdQuery;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Condominium.Api.Controllers

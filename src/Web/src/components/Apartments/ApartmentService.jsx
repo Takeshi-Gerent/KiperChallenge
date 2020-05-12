@@ -1,12 +1,12 @@
 import axios from 'axios'
 import config from 'config'
 
-const getAll = async () => {
+const getAll = async () => {    
     let result = await axios({
         method: 'get',
         headers: { 'Content-Type': 'application/json-patch+json' },
         url: config.BACKEND_API + '/Apartment',
-    });    
+    });        
     return result.data;    
 }
 
@@ -26,8 +26,8 @@ const save = async (data) => {
         url: config.BACKEND_API + '/Apartment',
         data: data
     })
-    .then((result) => { return { message: 'Salvo com sucesso', id : result.data.id }; })
-    .catch((error) => { console.log(error.message); return { message: 'Não foi possível salvar o apartamento.' } });
+        .then((result) => { return result.data; })
+        .catch((error) => { console.log(error.message); return { message: 'Não foi possível salvar o apartamento.' } });
 
     return result;
 }
@@ -39,8 +39,8 @@ const update = async (data) => {
         url: config.BACKEND_API + '/Apartment',
         data: data
     })
-    .then((result) => { return { message: 'Atualizado com sucesso', id : result.data.id }; })
-    .catch((error) => { console.log(error.message); return { message: 'Não foi possível atualizar o apartamento.' } });
+        .then((result) => { return result.data; })
+        .catch((error) => { console.log(error.message); return { message: 'Não foi possível atualizar o apartamento.' } });
     return result;
 }
 
@@ -51,7 +51,7 @@ const remove = async (data) => {
         url: config.BACKEND_API + '/Apartment',
         data: data
     })
-        .then((result) => { return { message: 'Excluído com sucesso', id: result.data.id }; })
+        .then((result) => { return result.data; })
         .catch((error) => { console.log(error.message); return { message: 'Não foi possível excluir o apartamento.' } });
     return result;
 }

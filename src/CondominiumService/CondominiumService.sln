@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Condominium.Application", "Condominium.Application\Condominium.Application.csproj", "{14D913AA-ED9B-4099-AE6E-7FFDA92B3740}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Condominium.Broker", "Condominium.Broker\Condominium.Broker.csproj", "{14D913AA-ED9B-4099-AE6E-7FFDA92B3740}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Condominium.Api", "Condominium.Api\Condominium.Api.csproj", "{40EFCC82-8C8B-45AE-9D42-F53FE3EBA34A}"
 EndProject
@@ -11,7 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth.Api", "Auth.Api\Auth.A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{091CA30C-46A5-4F82-850D-EA4BF74876AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Condominium.Test", "Tests\Condominium.Test\Condominium.Test.csproj", "{F492F3EF-857C-43C5-80BE-9D928E45203D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Condominium.Test", "Tests\Condominium.Test\Condominium.Test.csproj", "{F492F3EF-857C-43C5-80BE-9D928E45203D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Condominium.Core", "Condominium.Core\Condominium.Core.csproj", "{4EDD7CDC-64C4-4B7B-9208-9254866D2E57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Condominium.Data", "Condominium.Data\Condominium.Data.csproj", "{F7DDC361-8129-4AB7-B88C-5AB81E151BA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +39,14 @@ Global
 		{F492F3EF-857C-43C5-80BE-9D928E45203D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F492F3EF-857C-43C5-80BE-9D928E45203D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F492F3EF-857C-43C5-80BE-9D928E45203D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EDD7CDC-64C4-4B7B-9208-9254866D2E57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EDD7CDC-64C4-4B7B-9208-9254866D2E57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EDD7CDC-64C4-4B7B-9208-9254866D2E57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EDD7CDC-64C4-4B7B-9208-9254866D2E57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7DDC361-8129-4AB7-B88C-5AB81E151BA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7DDC361-8129-4AB7-B88C-5AB81E151BA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7DDC361-8129-4AB7-B88C-5AB81E151BA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7DDC361-8129-4AB7-B88C-5AB81E151BA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

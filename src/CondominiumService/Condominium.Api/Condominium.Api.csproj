@@ -18,7 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Condominium.Application\Condominium.Application.csproj" />
+    <ProjectReference Include="..\Condominium.Broker\Condominium.Broker.csproj" />
+    <ProjectReference Include="..\Condominium.Core\Condominium.Core.csproj" />
+    <ProjectReference Include="..\Condominium.Data\Condominium.Data.csproj" />
   </ItemGroup>
 
 

@@ -1,12 +1,9 @@
-﻿using Condominium.Api.Domain;
-using Condominium.Api.Queries;
-using Condominium.Application.Queries.Dtos;
+﻿using Condominium.Api.Queries;
+using Condominium.Broker.Queries.FindAllApartmentsQuery;
+using Condominium.Core.Domain;
 using Condominium.Test.TestData;
 using Moq;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -38,9 +35,9 @@ namespace Condominium.Test.Handlers
         public async Task FindAllApartments_ReturnListOfAllApartments()
         {
             var handler = new FindAllApartmentsHandler(uow.Object);
-            var result = await handler.Handle(new Application.Queries.FindAllApartmentsQuery(), new CancellationToken());
+            var result = await handler.Handle(new FindAllApartmentsQuery(), new CancellationToken());
             Assert.NotNull(result);
-            Assert.Equal(apartments.Count, result.ToList().Count);
+            Assert.Equal(apartments.Count, result.Apartments.Count);
         }
     }
 }

@@ -1,8 +1,5 @@
-﻿using Condominium.Api.Domain;
+﻿using Condominium.Core.Domain;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace Condominium.Test.Domain

@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import DwellerService from "./DwellerService";
 import { Form, FormControl, InputGroup, Button } from 'react-bootstrap';
 import styled from 'styled-components';
+import Moment from 'moment';
 
 const Styles = styled.div`
   .cabecalho {
@@ -19,7 +20,7 @@ class DwellerForm extends Component {
         super(props);
         this.state = {
             data: {
-                id: 0, name: '', birthdate: '', telephone: '', cpf: '', email: '', apartment: { id: 0, number: '', block: '' }
+                id: 0, name: '', birthDate: '', formatedBirthDate: '',telephone: '', cpf: '', email: '', apartment: { id: 0, number: '', block: '' }
             }
         };
     };
@@ -36,8 +37,10 @@ class DwellerForm extends Component {
     }
 
     getDweller = (id) => {
-        DwellerService.get(id).then((result) => this.setState({ data: result }));
-        return DwellerService.get(id);
+        DwellerService.get(id).then((result) => {
+            result.formatedBirthDate = Moment(result.birthDate).format("DD/MM/YYYY");
+            this.setState({ data: result });                   
+        });        
     }
 
     editApartment = () => {
@@ -47,6 +50,14 @@ class DwellerForm extends Component {
     onSubmit = event => {
         event.preventDefault();
         const data = this.state.data;
+        data.birthDate = Moment(data.formatedBirthDate, 'DD/MM/YYYY').toJSON();
+        DwellerService.update(data).then((result) => {
+            alert(result.message);
+            if (result.success) {                
+                this.props.history.push("/moradores/alterar/" + result.dwellerId);
+            }
+        });
+
     };
 
     render() {
@@ -67,7 +78,7 @@ class DwellerForm extends Component {
                         </InputGroup>
                         <InputGroup className="mb-3" size="sm">
                             <InputGroup.Prepend><InputGroup.Text>Data de nascimento</InputGroup.Text></InputGroup.Prepend>
-                            <FormControl name="birthdate" value={this.state.data.birthdate} onChange={this.handleChange} />
+                            <FormControl name="formatedBirthDate" value={this.state.data.formatedBirthDate} onChange={this.handleChange} />
                         </InputGroup>
                         <InputGroup className="mb-3" size="sm">
                             <InputGroup.Prepend><InputGroup.Text>Telefone</InputGroup.Text></InputGroup.Prepend>

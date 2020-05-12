@@ -1,8 +1,7 @@
-﻿using Condominium.Api.Domain;
-
+﻿using Condominium.Core.Domain;
 using System;
 using System.Collections.Generic;
-using System.Text;
+
 
 namespace Condominium.Test.TestData
 {

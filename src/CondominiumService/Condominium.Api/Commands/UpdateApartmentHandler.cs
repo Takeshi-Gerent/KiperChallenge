@@ -1,10 +1,6 @@
-﻿using Condominium.Api.Domain;
-using Condominium.Api.Mappers;
-using Condominium.Application.Commands;
-using Condominium.Application.Commands.Dtos;
-using Condominium.Application.Commands.Validation;
+﻿using Condominium.Broker.Commands.UpdateApartmentCommand;
+using Condominium.Core.Domain;
 using MediatR;
-using Org.BouncyCastle.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Condominium.Api.Commands
 {
-    public class UpdateApartmentHandler : IRequestHandler<UpdateApartmentCommand, ApartmentDto>
+    public class UpdateApartmentHandler : IRequestHandler<UpdateApartmentCommand, UpdateApartmentCommandResult>
     {
         private readonly IUnitOfWork uow;
 
@@ -23,16 +19,22 @@ namespace Condominium.Api.Commands
             this.uow = uow;
         }
 
-        public async Task<ApartmentDto> Handle(UpdateApartmentCommand request, CancellationToken cancellationToken)
+        public async Task<UpdateApartmentCommandResult> Handle(UpdateApartmentCommand request, CancellationToken cancellationToken)
         {
-            Validate(request);
-            var apartment = await uow.ApartmentRepository.GetById(request.Id);
-            if (apartment == null) throw new Exception("Apartamento não localizado.");
-            apartment.UpdateData(request.Number, request.Block, DwellerMapper.FromDwellerDtoList(request.Dwellers));
-            uow.ApartmentRepository.Update(apartment);            
-            await uow.CommitChanges();
-
-            return new ApartmentDto { Id = apartment.Id };
+            try
+            {
+                Validate(request);
+                var apartment = await uow.ApartmentRepository.GetById(request.Id);
+                if (apartment == null) throw new Exception("Apartamento não localizado.");
+                apartment.UpdateData(request.Number, request.Block, FromDwellerDtoList(request.Dwellers));
+                uow.ApartmentRepository.Update(apartment);
+                await uow.CommitChanges();
+                return new UpdateApartmentCommandResult { Success = true, Message="Apartamento atualizado com sucesso.", ApartmentId = apartment.Id };
+            }
+            catch (Exception e)
+            {
+                return new UpdateApartmentCommandResult { Success = false, Message = e.Message };
+            }
         }
 
         private static void Validate(UpdateApartmentCommand command)
@@ -50,6 +52,16 @@ namespace Condominium.Api.Commands
                 }
                 throw new Exception(errorBuilder.ToString());
             }
+        }
+
+        private static IEnumerable<Dweller> FromDwellerDtoList(IEnumerable<DwellerDto> dwellerDtos)
+        {
+            return dwellerDtos?.Select(d => FromDwellerDto(d));
+        }
+
+        private static Dweller FromDwellerDto(DwellerDto dwellerDto)
+        {
+            return Dweller.FromId(dwellerDto.Id, dwellerDto.Name, dwellerDto.BirthDate.Value, dwellerDto.Telephone, dwellerDto.CPF, dwellerDto.Email, null);
         }
 
     }

@@ -31,9 +31,10 @@ const ApartmentList = () => {
 		getAllApartments();
 	}, [])
 
-	const getAllApartments = () => {
-		
-		ApartmentService.getAll().then((result) => setApartments(result));
+	const getAllApartments = () => {		
+		ApartmentService.getAll().then((result) => {			
+			setApartments(result.apartments);
+		});
 		
 	};
 

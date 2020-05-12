@@ -6,11 +6,15 @@ ENV APP_HOME /src
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
-COPY ["Condominium.Application/Condominium.Application.csproj", "$APP_HOME/Condominium.Application/"]
+COPY ["Condominium.Broker/Condominium.Broker.csproj", "$APP_HOME/Condominium.Broker/"]
+COPY ["Condominium.Core/Condominium.Core.csproj", "$APP_HOME/Condominium.Core/"]
+COPY ["Condominium.Data/Condominium.Data.csproj", "$APP_HOME/Condominium.Data/"]
 COPY ["Condominium.Api/Condominium.Api.csproj", "$APP_HOME/Condominium.Api/"]
 RUN cd $APP_HOME/Condominium.Api && dotnet restore
 
-COPY ["Condominium.Application", "$APP_HOME/Condominium.Application/"]
+COPY ["Condominium.Broker", "$APP_HOME/Condominium.Broker/"]
+COPY ["Condominium.Core", "$APP_HOME/Condominium.Core/"]
+COPY ["Condominium.Data", "$APP_HOME/Condominium.Data/"]
 COPY ["Condominium.Api", "$APP_HOME/Condominium.Api/"]
 RUN cd $APP_HOME/Condominium.Api && dotnet build
 

@@ -1,7 +1,5 @@
-﻿using Condominium.Application.Queries;
-using System;
+﻿using Condominium.Broker.Queries.FindApartmentByIdQuery;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Condominium.Test.TestData
 {

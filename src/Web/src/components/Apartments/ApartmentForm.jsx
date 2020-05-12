@@ -66,19 +66,33 @@ class ApartmentForm extends Component {
         event.preventDefault();
         const data = this.state.data;
         if (this.editMode) {
-            ApartmentService.update(data).then((result) => { console.log(result); });
+            ApartmentService.update(data).then((result) => {
+                alert(result.message);
+                if (result.success) {                                     
+                    this.props.history.push("/apartamentos/alterar/" + result.apartmentId);
+                }
+            });
         } else {
-            ApartmentService.save(data).then((result) => { console.log(result); });
+            ApartmentService.save(data).then((result) => {
+                console.log(result);
+                alert(result.message);
+                if (result.success) {
+                    this.props.history.push("/apartamentos/alterar/" + result.apartmentId);
+                }
+            });
         }
-
     };
 
     removeApartment = () => {
         const data = { id: this.state.data.id };
-        ApartmentService.remove(data).then((result) => { console.log(result); });
+        ApartmentService.remove(data).then((result) => {
+            console.log(result);
+            alert(result.message);
+            if (result.success) {
+                this.props.history.push("/apartamentos");
+            }
+        });
     };
-    
-
 
     newDweller = () => {
         return {
@@ -113,8 +127,7 @@ class ApartmentForm extends Component {
         this.setState(prevState => ({ data: { ...prevState.data, dwellers: dwellers } }));
     }
 
-    handleSaveAndCloseModal = () => {
-
+    handleSaveAndCloseModal = () => {        
         if (this.isValidModalDweller()) {
             this.saveDweller();
             this.handleCloseModal();
@@ -135,6 +148,11 @@ class ApartmentForm extends Component {
         let modalDweller = data;
         modalDweller.formatedBirthDate = Moment(data.birthDate).format("DD/MM/YYYY");        
         this.setState({ modalDweller: data });
+        this.validateDweller('name', modalDweller.name);
+        this.validateDweller('formatedBirthDate', modalDweller.formatedBirthDate);
+        this.validateDweller('cpf', modalDweller.cpf);
+        this.validateDweller('telephone', modalDweller.telephone);
+        this.validateDweller('email', modalDweller.email);
     }
 
     handleModalChange = ({ target }) => {
@@ -144,8 +162,7 @@ class ApartmentForm extends Component {
         );
     }
 
-    validateDweller = (fieldName, value) => {
-        
+    validateDweller = (fieldName, value) => {        
         switch (fieldName) {
             case 'name':
                 let nameValid = (value.trim() !== "");
@@ -238,7 +255,7 @@ class ApartmentForm extends Component {
                                 </thead>
                                 <tbody>
                                     {this.state.data.dwellers.map((dweller, index) => (
-                                        <tr >
+                                        <tr key={index}>
                                             <td><Button onClick={() => this.editDweller(index)}><FaUserEdit /></Button></td>
                                             <td><Button onClick={() => this.removeDweller(index)}><FaUserMinus /></Button></td>
                                             <td>{dweller.name}</td>

@@ -1,8 +1,6 @@
-﻿using Condominium.Api.Domain;
-using Condominium.Api.Mappers;
-using Condominium.Application.Queries;
+﻿using Condominium.Broker.Queries.FindApartmentByIdQuery;
+using Condominium.Core.Domain;
 using MediatR;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -27,7 +25,25 @@ namespace Condominium.Api.Queries
                 Id = result.Id,
                 Number = result.Number,
                 Block = result.Block,
-                Dwellers = DwellerMapper.ToDwellerDtoList(result.Dwellers)
+                Dwellers = ToDwellerDtoList(result.Dwellers)
+            };
+        }
+
+        private static IEnumerable<DwellerDto> ToDwellerDtoList(IEnumerable<Dweller> dwellers)
+        {
+            return dwellers?.Select(d => ToDwellerDto(d));
+        }
+
+        private static DwellerDto ToDwellerDto(Dweller dweller)
+        {
+            return new DwellerDto
+            {
+                Id = dweller.Id,
+                Name = dweller.Name,
+                BirthDate = dweller.BirthDate,
+                Telephone = dweller.Telephone,
+                CPF = dweller.CPF,
+                Email = dweller.Email
             };
         }
     }    
