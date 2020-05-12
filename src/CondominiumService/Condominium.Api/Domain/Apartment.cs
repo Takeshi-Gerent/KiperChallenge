@@ -27,14 +27,25 @@ namespace Condominium.Api.Domain
         {
             var apartment = new Apartment(0, number, block);
             apartment.SetDwellers(dwellers);
+            apartment.HasAtLeastOneDweller();
             return apartment;
         }
 
         public static Apartment FromId(int id, int number, string block, IEnumerable<Dweller> dwellers)
         {
             var apartment = new Apartment(id, number, block);
-            apartment.SetDwellers(dwellers);
+            dwellers.ToList().ForEach(p => p.SetApartment(apartment));
+            apartment.Dwellers = dwellers.ToList();            
+            apartment.HasAtLeastOneDweller();
             return apartment;
+        }
+
+        private void HasAtLeastOneDweller()
+        {
+            if (Dwellers == null || !Dwellers.Any())
+            {
+                throw new ArgumentException("Informe ao menos 1 morador");
+            }
         }
 
         public virtual void UpdateData(int number, string block, IEnumerable<Dweller> dwellers)
@@ -42,6 +53,7 @@ namespace Condominium.Api.Domain
             Number = number;
             Block = block;            
             SetDwellers(dwellers);
+            HasAtLeastOneDweller();
         }
 
         private void SetDwellers(IEnumerable<Dweller> dwellers)

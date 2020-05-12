@@ -19,3 +19,28 @@ Deve existir um mecanismo de login e senha para que o sistema possa ser acessado
 **mysql**
 
 Executar o script 'database/createdatabase.sql'
+
+
+**DOCKER**
+
+1- Criar network
+$ docker network create -d bridge kiperchallengenetwork
+
+2- Iniciar my_sql
+$ docker-compose -f infra.yml up -d
+
+3- execute o script de criação de base no mysql (conceda acesso ao usuario da configuração de conexao à base)
+
+4- inicie as aplicações no docker 
+$ docker-compose up -d --build
+
+**Endereços**
+
+Web:
+http://localhost:3001
+(Usuario:admin;Senha:password)
+AuthApi:
+http://localhost:5080/info
+
+BackendApi:
+http://localhost:5081/info
