@@ -1,12 +1,14 @@
 ﻿using Condominium.Core.Extensions;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace Condominium.Core.Domain
 {
     public class Apartment
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual int Id { get; protected set; }
         public virtual int Number { get; protected set; }
         public virtual string Block { get; protected set; }

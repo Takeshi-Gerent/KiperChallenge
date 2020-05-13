@@ -29,7 +29,8 @@ $ docker network create -d bridge kiperchallengenetwork
 2- Iniciar my_sql
 $ docker-compose -f infra.yml up -d
 
-3- execute o script de criação de base no mysql (conceda acesso ao usuario da configuração de conexao à base)
+3- execute o script de criação de base no mysql ou execute via docker-compose
+$ docker-compose -f database.yml up -d --build
 
 4- inicie as aplicações no docker 
 $ docker-compose up -d --build

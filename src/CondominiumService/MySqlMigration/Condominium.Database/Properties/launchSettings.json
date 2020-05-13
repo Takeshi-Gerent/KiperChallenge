@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Condominium.Database": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ENVIRONMENT": "Docker"
+      }
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+      
+  database:
+    image: condominiumdatabase
+    container_name: condominiumdatabase
+    build:
+      context: ./CondominiumService/
+      dockerfile: ./Condominium.Database/Dockerfile
+    environment:      
+      ENVIRONMENT: "docker"
+    networks:
+      - kiperchallengenetwork
+  
+networks:
+  kiperchallengenetwork:
+    external: true  

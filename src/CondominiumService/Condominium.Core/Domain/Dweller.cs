@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Condominium.Core.Domain
 {
     public class Dweller
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual int Id { get; protected set; }
         public virtual string Name { get; protected set; }
         public virtual DateTime BirthDate { get; protected set; }

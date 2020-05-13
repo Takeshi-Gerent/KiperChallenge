@@ -24,6 +24,6 @@ RUN dotnet publish -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
-ENV ASPNETCORE_URLS=http://+:5070
+ENV ASPNETCORE_URLS=http://+:5081
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Condominium.Api.dll"]

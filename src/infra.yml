@@ -11,8 +11,6 @@ services:
       - kiperchallengenetwork
     environment:
       MYSQL_ROOT_PASSWORD: "kiperpassword"
-      MYSQL_PASSWORD: "Pass1234"
-      MYSQL_USER: "kiper"
     volumes:
       - mysqlvolume:/var/lib/mysql    
       

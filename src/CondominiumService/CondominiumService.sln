@@ -13,9 +13,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{091CA30C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Condominium.Test", "Tests\Condominium.Test\Condominium.Test.csproj", "{F492F3EF-857C-43C5-80BE-9D928E45203D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Condominium.Core", "Condominium.Core\Condominium.Core.csproj", "{4EDD7CDC-64C4-4B7B-9208-9254866D2E57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Condominium.Core", "Condominium.Core\Condominium.Core.csproj", "{4EDD7CDC-64C4-4B7B-9208-9254866D2E57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Condominium.Data", "Condominium.Data\Condominium.Data.csproj", "{F7DDC361-8129-4AB7-B88C-5AB81E151BA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Condominium.Data", "Condominium.Data\Condominium.Data.csproj", "{F7DDC361-8129-4AB7-B88C-5AB81E151BA7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Condominium.Database", "Condominium.Database\Condominium.Database.csproj", "{BFDFD832-AFB1-427A-9956-DEEE7D994282}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{F7DDC361-8129-4AB7-B88C-5AB81E151BA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7DDC361-8129-4AB7-B88C-5AB81E151BA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7DDC361-8129-4AB7-B88C-5AB81E151BA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFDFD832-AFB1-427A-9956-DEEE7D994282}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFDFD832-AFB1-427A-9956-DEEE7D994282}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFDFD832-AFB1-427A-9956-DEEE7D994282}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFDFD832-AFB1-427A-9956-DEEE7D994282}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

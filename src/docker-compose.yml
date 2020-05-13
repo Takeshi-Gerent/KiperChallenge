@@ -9,7 +9,8 @@ services:
     build:
       context: ./CondominiumService/
       dockerfile: ./Auth.Api/Dockerfile
-    environment:      
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Docker"
       ASPNETCORE_URLS: "http://+:5072"
     ports:
       - '5080:5072'
@@ -23,6 +24,7 @@ services:
       context: ./CondominiumService/
       dockerfile: ./Condominium.Api/Dockerfile
     environment:
+      ASPNETCORE_ENVIRONMENT: "Docker"
       ASPNETCORE_URLS: "http://+:5070"
     ports:
       - '5081:5070'      

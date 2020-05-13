@@ -16,15 +16,16 @@ namespace Auth.Api
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true)
-                .AddCommandLine(args)
-                .Build();
-
             return WebHost.CreateDefaultBuilder(args)
-                .UseConfiguration(config)
-                .UseStartup<Startup>();
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config
+                        .SetBasePath(Directory.GetCurrentDirectory())                        
+                        .AddJsonFile("appsettings.json", optional: true)
+                        .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
+                        .AddCommandLine(args)
+                        .Build();
+                }).UseStartup<Startup>();
         }
 
     }
