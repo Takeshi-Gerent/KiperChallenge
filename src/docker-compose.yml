@@ -38,8 +38,8 @@ services:
       context: './Web'
       dockerfile: './Dockerfile'
     volumes:
-      - './Web:/app'
-      - '/Web/app/node_modules'
+      - './Web/:/app'
+      - '/app/node_modules'
     ports:
       - '3001:3000'
     environment:

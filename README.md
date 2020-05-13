@@ -17,6 +17,12 @@ O morador possui as seguintes informações: Nome completo, data de nascimento, 
 
 ![ER](https://mermaid.ink/img/eyJjb2RlIjoiY2xhc3NEaWFncmFtXG5BcGFydG1lbnQgXCIxXCIgLS0-IFwiMS4uKlwiIER3ZWxsZXJcbmNsYXNzIEFwYXJ0bWVudCB7XG4gaW50IElkXG4gaW50IE51bWJlclxuIHZhcmNoYXJ-NX4gQmxvY2tcbn1cbmNsYXNzIER3ZWxsZXIge1xuIGludCBJZFxuIHZhcmNoYXJ-NDB-IE5hbWVcbiBkYXRldGltZSBCaXJ0aERhdGVcbiB2YXJjaGFyfjE1fiBUZWxlcGhvbmVcbiB2YXJjaGFyfjE1fiBDUEZcbiB2YXJjaGFyfjQwfiBFbWFpbFxufVxuY2xhc3MgVXNlciB7XG4gaW50IElkXG4gdmFyY2hhcn4yMH4gVXNlck5hbWUgXG4gdmFyY2hhcn4yMH4gUGFzc3dvcmRcbn1cbiIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9)
 
+## Projeto
+
+> git clone https://github.com/Takeshi-Gerent/KiperChallenge.git  
+`cd KiperChallenge\src`
+
+
 ## DOCKER
 
 > Bridge network  
