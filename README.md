@@ -33,10 +33,10 @@ O morador possui as seguintes informações: Nome completo, data de nascimento, 
 
 ### Aplicação
 
->Web													
-Endereços: http://localhost:3001									
+>Web                                                                           
+Endereços: http://localhost:3001                                                   
 *Usuario:admin; Senha:password*												
 
->Backend																
-Auth.Api: http://localhost:5080/info									
+>Backend                                                                     
+Auth.Api: http://localhost:5080/info                                                       
 Condominium.Api: http://localhost:5081/info								
