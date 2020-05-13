@@ -27,7 +27,7 @@ const save = async (data) => {
         data: data
     })
         .then((result) => { return result.data; })
-        .catch((error) => { console.log(error.message); return { message: 'Não foi possível salvar o apartamento.' } });
+        .catch((error) => { console.log(error.message); return { message: 'Nï¿½o foi possï¿½vel salvar o apartamento.' } });
 
     return result;
 }
@@ -40,7 +40,7 @@ const update = async (data) => {
         data: data
     })
         .then((result) => { return result.data; })
-        .catch((error) => { console.log(error.message); return { message: 'Não foi possível atualizar o apartamento.' } });
+        .catch((error) => { console.log(error.message); return { message: 'Nï¿½o foi possï¿½vel atualizar o apartamento.' } });
     return result;
 }
 
@@ -52,7 +52,7 @@ const remove = async (data) => {
         data: data
     })
         .then((result) => { return result.data; })
-        .catch((error) => { console.log(error.message); return { message: 'Não foi possível excluir o apartamento.' } });
+        .catch((error) => { console.log(error.message); return { message: 'Nï¿½o foi possï¿½vel excluir o apartamento.' } });
     return result;
 }
 

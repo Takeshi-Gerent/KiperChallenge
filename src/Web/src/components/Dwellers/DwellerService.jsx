@@ -48,7 +48,7 @@ const update = async (data) => {
         data: data
     })
         .then((result) => { return result.data; })
-        .catch((error) => { console.log(error.message); return { message: 'Não foi possível atualizar o morador.' } });
+        .catch((error) => { console.log(error.message); return { message: 'Nï¿½o foi possï¿½vel atualizar o morador.' } });
     return result;
 }
 
