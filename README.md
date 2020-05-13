@@ -19,24 +19,24 @@ O morador possui as seguintes informações: Nome completo, data de nascimento, 
 
 ## DOCKER
 
-> Bridge network								
+> Bridge network  
 `docker network create -d bridge kiperchallengenetwork`
 
->Iniciar MySql										
+> Iniciar MySql  
 `docker-compose -f infra.yml up -d`
 
->Criar a base de dados									
+> Criar a base de dados  
 `docker-compose -f database.yml up -d`
 
->*Subir* as aplicações								
+> *"Subir"* as aplicações  
 `docker-compose up -d --build`
 
 ### Aplicação
 
->Web                                                                           
-Endereços: http://localhost:3001                                                   
-*Usuario:admin; Senha:password*												
+> Web  
+`Endereços: http://localhost:3001`  
+`Usuario:admin; Senha:password`
 
->Backend                                                                     
-Auth.Api: http://localhost:5080/info                                                       
-Condominium.Api: http://localhost:5081/info								
+> Backend  
+`Auth.Api: http://localhost:5080/info`  
+`Condominium.Api: http://localhost:5081/info`
