@@ -1,48 +1,42 @@
-## Desafio Kipper
+
+# Desafio Kipper
 
 **Demanda**
-Você foi contratado para desenvolver uma aplicação web de ​gestão de condomínio. O seu contratante te forneceu a seguinte orientação: 
-“Preciso de um sistema web que me permita realizar o cadastro de apartamentos e os seus moradores. Cada apartamento possui um número, um bloco e vários moradores, sendo que deve ser obrigatório ao menos um morador. 
+
+*Você foi contratado para desenvolver uma aplicação web de ​gestão de condomínio. O seu contratante te forneceu a seguinte orientação:*
+>Preciso de um sistema web que me permita realizar o cadastro de apartamentos e os seus moradores. Cada apartamento possui um número, um bloco e vários moradores, sendo que deve ser obrigatório ao menos um morador. 
 O morador possui as seguintes informações: Nome completo, data de nascimento, telefone, cpf e e-mail.
 
-Eu devo poder incluir, alterar e excluir livremente os registros de apartamento e moradores.
+- Eu devo poder incluir, alterar e excluir livremente os registros de apartamento e moradores.
 
-Deve existir um mecanismo de busca que me permita encontrar todos os moradores de
-determinado apartamento, bem como a busca específica por informações do morador.
+- Deve existir um mecanismo de busca que me permita encontrar todos os moradores de determinado apartamento, bem como a busca específica por informações do morador.
 
-Deve existir um mecanismo de login e senha para que o sistema possa ser acessado”
+- Deve existir um mecanismo de login e senha para que o sistema possa ser acessado
 
-**ER**
+## Diagrama ER
 
-![ER](ER.png)
+![ER](https://mermaid.ink/img/eyJjb2RlIjoiY2xhc3NEaWFncmFtXG5BcGFydG1lbnQgXCIxXCIgLS0-IFwiMS4uKlwiIER3ZWxsZXJcbmNsYXNzIEFwYXJ0bWVudCB7XG4gaW50IElkXG4gaW50IE51bWJlclxuIHZhcmNoYXJ-NX4gQmxvY2tcbn1cbmNsYXNzIER3ZWxsZXIge1xuIGludCBJZFxuIHZhcmNoYXJ-NDB-IE5hbWVcbiBkYXRldGltZSBCaXJ0aERhdGVcbiB2YXJjaGFyfjE1fiBUZWxlcGhvbmVcbiB2YXJjaGFyfjE1fiBDUEZcbiB2YXJjaGFyfjQwfiBFbWFpbFxufVxuY2xhc3MgVXNlciB7XG4gaW50IElkXG4gdmFyY2hhcn4yMH4gVXNlck5hbWUgXG4gdmFyY2hhcn4yMH4gUGFzc3dvcmRcbn1cbiIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9)
 
-**mysql**
+## DOCKER
 
-Executar o script 'database/createdatabase.sql'
+> Bridge network
+`docker network create -d bridge kiperchallengenetwork`
 
+>Iniciar MySql
+`docker-compose -f infra.yml up -d`
 
-**DOCKER**
+>Criar a base de dados
+`docker-compose -f database.yml up -d`
 
-1- Criar network
-$ docker network create -d bridge kiperchallengenetwork
+>*Subir* as aplicações
+`docker-compose up -d --build`
 
-2- Iniciar my_sql
-$ docker-compose -f infra.yml up -d
+### Aplicação
 
-3- execute o script de criação de base no mysql ou execute via docker-compose
-$ docker-compose -f database.yml up -d --build
+>Web
+Endereços: http://localhost:3001
+*Usuario:admin; Senha:password*
 
-4- inicie as aplicações no docker 
-$ docker-compose up -d --build
-
-**Endereços**
-
-Web:
-http://localhost:3001
-(Usuario:admin;Senha:password)
-
-AuthApi:
-http://localhost:5080/info
-
-BackendApi:
-http://localhost:5081/info
+>Backend
+Auth.Api: http://localhost:5080/info
+Condominium.Api: http://localhost:5081/info
